@@ -5,7 +5,7 @@ let s:script_file     = expand('<sfile>:p:h')
 let s:translation_dic = ['', '']
 let s:proposition_dic = {}
 
-function! seiji#conv_to_seiji() range
+function! seiji#com_seiji() range
   let view = winsaveview()
   for lnum in range(a:firstline, a:lastline)
     call s:translate_to_seiji(lnum)
@@ -14,7 +14,7 @@ function! seiji#conv_to_seiji() range
   call winrestview(view)
 endfunction
 
-function! seiji#conv_to_zokuji() range
+function! seiji#com_sinji() range
   let view = winsaveview()
   for lnum in range(a:firstline, a:lastline)
     call s:translate_to_zokuji(lnum)
