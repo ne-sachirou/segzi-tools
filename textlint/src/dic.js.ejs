@@ -1,0 +1,6 @@
+module.exports = {
+  zokuji: {
+    <%- zokuji.map(ji => `${ji[0]}: '${ji[1]}'`).join(',\n    ') %>
+  }
+}
+<%# vim:set ft=javascript: %>
