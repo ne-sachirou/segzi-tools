@@ -1,5 +1,5 @@
 {
-  "name": "textlint-seiji",
+  "name": "textlint-plugin-seiji",
   "version": "0.0.1",
   "description": "正字",
   "main": "index.js",
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "textlint",
+    "orthography",
     "正字",
     "舊字",
     "旧字",
@@ -38,5 +39,8 @@
     "power-assert": "^1.4.1",
     "textlint": "^7.1.0",
     "textlint-tester": "^2.0.0"
+  },
+  "peerDependencies": {
+    "textlint": ">= 5.5.0"
   }
 }

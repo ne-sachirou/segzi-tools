@@ -1,3 +1,4 @@
+'use strict'
 module.exports = function promisify (func) {
   return function (...args) {
     return new Promise((resolve, reject) => {
