@@ -6,7 +6,7 @@ import subprocess
 import sys
 from shlex import quote
 
-from segzify.Segzify import Segzify
+from segzify import Segzify
 
 tasks = {}
 
@@ -40,13 +40,13 @@ def task(function):
 @task
 def format():
     """Format all files."""
-    run("poetry run isort *.py */*.py")
-    run("poetry run black *.py */*.py")
+    run("poetry run isort *.py segzify tests")
+    run("poetry run black *.py segzify tests")
     for filename in glob.glob("*.md"):
-        if Segzify().force(filename):
-            print(filename, " !")
+        if Segzify().force_file(filename):
+            print("Segzify", filename, "!")
         else:
-            print(filename)
+            print("Segzify", filename)
         run("npx prettier --write {}".format(quote(filename)))
 
 
@@ -54,30 +54,24 @@ def format():
 def setup():
     """Setup this project."""
     run("poetry install")
-    run("npm install")
-    run("npm fund")
 
 
 @task
 def test():
     """Test."""
     run("poetry check")
-    run("poetry run black --check *.py imperial_calendar stubs tests ui web")
+    run("poetry run isort -c *.py segzify tests")
+    run("poetry run black --check *.py segzify tests")
     run("poetry run flake8 .")
     run("poetry run mypy *.py")
     run("poetry run coverage erase")
     run("poetry run coverage run -m unittest discover -s tests")
     run("poetry run coverage report -m")
-    run("npm audit")
 
 
 @task
 def upgrade():
     """Upgrade dependencies."""
-    run("npx npm-check-updates -u")
-    run("npm install")
-    run("npm audit fix")
-    run("npm fund")
     run("poetry update")
 
 

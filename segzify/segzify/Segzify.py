@@ -1,3 +1,4 @@
+"""Force 俗字 to 正字."""
 import re
 import typing as t
 
@@ -352,17 +353,27 @@ class Segzify(object):
         "\uFA6A": "\u983B\U000E0100",  # 頻
     }
 
-    def force(self, filename: str) -> bool:
-        """Force 俗字 to 正字. Return True if the file had some 俗字."""
+    def force(self, content: str) -> str:
+        """Force 俗字 to 正字."""
+        for (zokuzi, segzi) in self.__class__.table.items():
+            regex = "{}(?:[{}]?)".format(
+                zokuzi,
+                "".join(self.__class__.itaizi_selectors),
+            )
+            content = re.sub(regex, segzi, content)
+        return content
+
+    # __pragma__("skip")
+    def force_file(self, filename: str) -> bool:
+        """Force 俗字 to 正字 in the file. Return True if the file had some 俗字."""
         with open(filename, "r+") as f:
             original_content = content = f.read()
-            for (zokuzi, segzi) in Segzify.table.items():
-                regex = "{}(?:[{}]?)".format(
-                    zokuzi,
-                    "".join(Segzify.itaizi_selectors),
-                )
-                content = re.sub(regex, segzi, content)
+            content = self.force(content)
+            if original_content == content:
+                return False
             f.seek(0)
             f.truncate()
             f.write(content)
-        return original_content != content
+        return True
+
+    # __pragma__("noskip")

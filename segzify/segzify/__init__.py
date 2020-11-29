@@ -1,3 +1,4 @@
+"""Force 俗字 to 正字."""
 from segzify.Segzify import Segzify
 
 __all__ = ["Segzify"]
