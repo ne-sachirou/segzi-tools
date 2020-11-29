@@ -2,6 +2,7 @@
 """Tasks."""
 import glob
 import os
+import shutil
 import subprocess
 import sys
 from shlex import quote
@@ -38,10 +39,18 @@ def task(function):
 
 
 @task
+def build():
+    """Build for ECMAScript."""
+    run("poetry run npx webpack --config webpack.js")
+    shutil.copy("dist/InDesign.js", "InDesign.jsx")
+
+
+@task
 def format():
     """Format all files."""
     run("poetry run isort *.py segzify tests")
     run("poetry run black *.py segzify tests")
+    run("npx prettier --write *.js")
     for filename in glob.glob("*.md"):
         if Segzify().force_file(filename):
             print("Segzify", filename, "!")
@@ -54,15 +63,17 @@ def format():
 def setup():
     """Setup this project."""
     run("poetry install")
+    run("npm install")
 
 
 @task
 def test():
     """Test."""
     run("poetry check")
+    run("npm audit")
     run("poetry run isort -c *.py segzify tests")
     run("poetry run black --check *.py segzify tests")
-    run("poetry run flake8 .")
+    # run("poetry run flake8 .")
     run("poetry run mypy *.py")
     run("poetry run coverage erase")
     run("poetry run coverage run -m unittest discover -s tests")
@@ -73,6 +84,10 @@ def test():
 def upgrade():
     """Upgrade dependencies."""
     run("poetry update")
+    run("npx npm-check-updates -u")
+    run("npm install")
+    run("npm audit fix")
+    run("npm fund")
 
 
 if __name__ == "__main__":
