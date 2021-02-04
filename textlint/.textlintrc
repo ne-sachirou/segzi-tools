@@ -1,0 +1,4 @@
+rules:
+  no-zokuji: ture
+
+# vim:set ft=yaml:

@@ -1,25 +1,46 @@
 {
-  "name": "textlint-seiji",
+  "name": "textlint-plugin-seiji",
   "version": "0.0.1",
   "description": "正字",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ne-sachirou/seiji-tools.git"
   },
   "keywords": [
-    "textlint"
+    "textlint",
+    "orthography",
+    "正字",
+    "舊字",
+    "旧字",
+    "繁體字",
+    "俗字",
+    "新字"
   ],
   "author": "Sachirou Inoue <utakata.c4se@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/ne-sachirou/seiji-tools/issues"
   },
-  "homepage": "https://github.com/ne-sachirou/seiji-tools#readme",
+  "homepage": "https://github.com/ne-sachirou/seiji-tools/textlint#readme",
   "dependencies": {
     "textlint-rule-helper": "^2.0.0"
+  },
+  "devDependencies": {
+    "ejs": "^2.5.1",
+    "eslint": "^3.4.0",
+    "eslint-config-standard": "^6.0.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
+    "mocha": "^3.0.2",
+    "power-assert": "^1.4.1",
+    "textlint": "^7.1.0",
+    "textlint-tester": "^2.0.0"
+  },
+  "peerDependencies": {
+    "textlint": ">= 5.5.0"
   }
 }
